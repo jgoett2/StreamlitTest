@@ -12,6 +12,6 @@ df = pd.DataFrame([{"name":"Jeff", "age":1},
 st.table(data=df)
 
 def call_back():
-    df[df.Name=="Jeff", "age"] += 1
+    df[df.Name=="Jeff", "age"] = 5
 
 st.button("Hello!", on_click=call_back)
