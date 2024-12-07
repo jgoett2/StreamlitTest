@@ -11,3 +11,5 @@ df = pd.DataFrame([{"name":"Jeff", "age":1},
 
 print(df)
 st.table(data=df)
+
+st.button("Hello!")
