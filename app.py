@@ -4,14 +4,24 @@ import numpy as np
 
 st.title("My Test App")
 
-st.text_area(label="Your Question Here")
+if "key" not in st.session_state:
+  st.session_state.key = {"Game1":"Notre Dame", "Game2":"Penn State"}
 
-df = pd.DataFrame([{"name":"Jeff", "age":1},
-                  {"name":"Dave", "age":2}])
+df = pd.DataFrame([{"Name":"Jeff", "Game1":"Notre Dame", "Game2":"Penn State"},
+             {"Name":"Dave", "Game1":"Indiana", "Game2":"Penn State"} 
+              ])
 
-st.table(data=df)
+results = df.iloc[:,1:] == st.session_state.key
+df["Wins"] = np.sum(results, axis=1)
 
-def call_back():
-    df[df.Name=="Jeff", "age"] = 5
+data_window = st.dataframe(df[["Name", "Wins"]])
 
-st.button("Hello!", on_click=call_back)
+def callback_function1():
+    st.session_state.key["Game1"] = "Notre Dame"
+
+def callback_function2():
+    st.session_state.key["Game1"] = "Indiana"
+
+
+st.button("Notre Dame Wins", on_click=callback_function1)
+st.button("Indiana Wins", on_click=callback_function2)
