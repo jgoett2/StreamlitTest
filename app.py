@@ -21,6 +21,6 @@ def callback_function():
     st.session_state.key["CFP_FirstRound1"] = st.session_state.CFP1
     pass
 
-st.radio("CFP First Round 2 3", ["Blabama", "Indiana", "open"], key="CFP1", index=2, horizontal=True, on_change=callback_function)
+st.radio("CFP First Round 2 3", ["1. Blabama", "Indiana", "open"], key="CFP1", index=2, horizontal=True, on_change=callback_function)
 
 
