@@ -12,4 +12,4 @@ df["Wins"] = np.sum(df.eq(key), axis=1)
 df["Losses"] = len(key) - df["Wins"] 
 df = df.sort_values("Wins", ascending=False)
 
-st.dataframe(df[["Name", "Wins", "Losses"]])
+st.dataframe(df[["Name", "Wins", "Losses"]], hide_index=True)
