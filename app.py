@@ -9,7 +9,7 @@ df = pd.read_csv("data.csv")
 key = pd.Series({"CFP_First_Round1": "2. Notre Dame"})
 
 df["Wins"] = np.sum(df.eq(key), axis=1)
+df["Losses"] = len(key) - df["Wins"] 
+df = df.sort_values("Wins", ascending=False)
 
-df = df.sort_values("Wins", reversed=True)
-
-st.dataframe(df[["Name", "Wins"]])
+st.dataframe(df[["Name", "Wins", "Losses"]])
