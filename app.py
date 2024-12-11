@@ -15,15 +15,20 @@ df["Wins"] = np.sum(df.eq(st.session_state.key), axis=1)
 df["Losses"] = np.sum(st.session_state.key != "open") - df["Wins"] 
 df = df.sort_values("Wins", ascending=False)
 
-st.dataframe(df[["Name", "Wins", "Losses"]], hide_index=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+  st.dataframe(df[["Name", "Wins", "Losses"]], hide_index=True)
 
 
 def callback_function():
     #print(st.session_state.Game1)
     st.session_state.key["CFP_First_Round1"] = name_conversion[st.session_state.CFP1]
-    
-for i in range(0,10):
-  st.segmented_control("CFP", ["Indiana", "Notre Dame"], key="CFP"+str(i),  
+
+with col2: 
+  for i in range(0,10):
+    st.segmented_control("CFP", ["Indiana", "Notre Dame"], key="CFP"+str(i),  
            on_change=callback_function)
 
 
