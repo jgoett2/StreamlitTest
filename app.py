@@ -17,7 +17,6 @@ st.session_state.key = st.session_state.key[st.session_state.key != "open"]
 
 df["Wins"] = np.sum(df.eq(st.session_state.key), axis=1)
 df["Losses"] = len(st.session_state.key) - df["Wins"]
-df = df.sort_values("Wins", ascending=False)
 
 # Simulate all possibe outcomes and total pathways to victory for each
 open_games = games[~games.Game.isin(st.session_state.key.index)]
@@ -37,6 +36,8 @@ def run_simulation(df, completed_key, open_games):
   key = completed_key.copy(deep=True)
   open_games_temp = open_games.reset_index()
   for i in range(0,2**len(open_games)):
+    if i%1000 == 0:
+      print(i)
     possible_outcome2 = possible_outcome(key, open_games_temp, i)
     record = np.sum(df.eq(possible_outcome2, axis=1), axis=1)
     #print(i,record)
@@ -57,6 +58,7 @@ st.session_state.key
 col1, col2 = st.columns(2)
 
 with col1:
+  df = df.sort_values(["Wins","Simulations_Won"], ascending=False)
   st.dataframe(df[["Name", "Wins", "Losses", "Simulations_Won"]], hide_index=True)
 
 
