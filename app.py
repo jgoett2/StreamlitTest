@@ -13,14 +13,51 @@ if "key" not in st.session_state:
   temp = games.set_index(games["Game"])
   st.session_state.key = pd.concat([temp.loc[temp["Team1_Victory"],"Team1"], temp.loc[temp["Team2_Victory"], "Team2"]]) 
 
+st.session_state.key = st.session_state.key[st.session_state.key != "open"]
+
 df["Wins"] = np.sum(df.eq(st.session_state.key), axis=1)
-df["Losses"] = len(st.session_state.key[st.session_state.key != "open"]) - df["Wins"]
+df["Losses"] = len(st.session_state.key) - df["Wins"]
 df = df.sort_values("Wins", ascending=False)
+
+# Simulate all possibe outcomes and total pathways to victory for each
+open_games = games[~games.Game.isin(st.session_state.key.index)]
+
+open_games
+
+def possible_outcome(completed_key, open_games, number):
+    key = completed_key.copy(deep=True)
+    open_games_temp = open_games.reset_index()
+    for i in open_games_temp.index:
+      if (number & 2**i) > 0:
+        key[open_games_temp.loc[i,'Game']] = open_games_temp.loc[i,"Team1"]
+      else:
+        key[open_games_temp.loc[i,'Game']] = open_games_temp.loc[i,"Team2"]
+    return key 
+
+def run_simulation(df, completed_key, open_games):
+  df["Simulations_Won"] = 0
+  for i in range(0,2**len(open_games)):
+    possible_outcome2 = possible_outcome(completed_key, open_games, i)
+    record = np.sum(df.eq(possible_outcome2, axis=1), axis=1)
+    #print(i,record)
+    df["Simulations_Won"] += (record == np.max(record))
+  return df
+
+df = run_simulation(df, st.session_state.key, open_games)
+
+open_games
+
+st.session_state.key
+
+
+
+
+
 
 col1, col2 = st.columns(2)
 
 with col1:
-  st.dataframe(df[["Name", "Wins", "Losses"]], hide_index=True)
+  st.dataframe(df[["Name", "Wins", "Losses", "Simulations_Won"]], hide_index=True)
 
 
 def callback_function(game):
