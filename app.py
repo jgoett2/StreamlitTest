@@ -25,19 +25,19 @@ open_games = games[~games.Game.isin(st.session_state.key.index)]
 open_games
 
 def possible_outcome(completed_key, open_games, number):
-    key = completed_key.copy(deep=True)
-    open_games_temp = open_games.reset_index()
-    for i in open_games_temp.index:
+    for i in open_games.index:
       if (number & 2**i) > 0:
-        key[open_games_temp.loc[i,'Game']] = open_games_temp.loc[i,"Team1"]
+        completed_key[open_games.loc[i,'Game']] = open_games.loc[i,"Team1"]
       else:
-        key[open_games_temp.loc[i,'Game']] = open_games_temp.loc[i,"Team2"]
-    return key 
+        completed_key[open_games.loc[i,'Game']] = open_games.loc[i,"Team2"]
+    return completed_key 
 
 def run_simulation(df, completed_key, open_games):
   df["Simulations_Won"] = 0
+  key = completed_key.copy(deep=True)
+  open_games_temp = open_games.reset_index()
   for i in range(0,2**len(open_games)):
-    possible_outcome2 = possible_outcome(completed_key, open_games, i)
+    possible_outcome2 = possible_outcome(key, open_games_temp, i)
     record = np.sum(df.eq(possible_outcome2, axis=1), axis=1)
     #print(i,record)
     df["Simulations_Won"] += (record == np.max(record))
