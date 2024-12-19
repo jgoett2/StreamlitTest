@@ -36,7 +36,7 @@ for i in range(0,18):
 
 pathways = np.zeros(19)
 
-for key in range(0,2**18):
+for key in range(0,2**14):
   results = ~(family_picks ^ np.uint32(key))
   total = np.zeros(19)
   for i in range(0,18):
