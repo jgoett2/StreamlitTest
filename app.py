@@ -57,13 +57,25 @@ def run_simulation(df, completed_key, open_games):
   return df
 
 ## Jeff Test Code Speed
-for i in range(0,2**19):
-  total = 0
-  grade = ~(np.uint32(2**18-1) ^ np.uint32(i))
+family_picks = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], dtype=np.uint32)
+for i in range(0,18):
+  family_picks[i+1] = 2**i 
 
-  for j in range(0,18):
-    total += grade % 2
-    grade = grade >> 1
+
+pathways = np.zeros(19)
+
+for key in range(0,2**18):
+  results = ~(family_picks ^ np.uint32(key))
+  total = np.zeros(19)
+  for i in range(0,18):
+    total += results % 2
+    results = results >> 1
+  winners = (total == max(total))
+  if (winners[0]):
+    print(key) 
+  pathways += winners
+
+pathways
 
 
 df["Simulations_Won"] = 0
