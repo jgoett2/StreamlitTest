@@ -24,6 +24,18 @@ open_games = games[~games.Game.isin(st.session_state.key.index)]
 open_games
 
 def possible_outcome(completed_key, open_games, number):
+  num = len(open_games.index)
+  key = ('{0:0' + str(num) + 'b}').format(number)
+  for i in list(zip(open_games.index, key)):
+    if i[1] == "0":
+      completed_key[open_games.loc[i[0],"Game"]] = open_games.loc[i[0],"Team2"]
+    else:
+      completed_key[open_games.loc[i[0],"Game"]] = open_games.loc[i[0],"Team1"] 
+  return completed_key
+
+
+
+def possible_outcome3(completed_key, open_games, number):
     for i in open_games.index:
       if (number & 2**i) > 0:
         completed_key[open_games.loc[i,'Game']] = open_games.loc[i,"Team1"]
@@ -44,7 +56,17 @@ def run_simulation(df, completed_key, open_games):
     df["Simulations_Won"] += (record == np.max(record))
   return df
 
-df = run_simulation(df, st.session_state.key, open_games)
+## Jeff Test Code Speed
+for i in range(0,2**19):
+  total = 0
+  grade = ~(np.uint32(2**18-1) ^ np.uint32(i))
+
+  for j in range(0,18):
+    total += grade % 2
+    grade = grade >> 1
+
+
+df["Simulations_Won"] = 0
 
 open_games
 
