@@ -23,38 +23,10 @@ open_games = games[~games.Game.isin(st.session_state.key.index)]
 
 open_games
 
-def possible_outcome(completed_key, open_games, number):
-  num = len(open_games.index)
-  key = ('{0:0' + str(num) + 'b}').format(number)
-  for i in list(zip(open_games.index, key)):
-    if i[1] == "0":
-      completed_key[open_games.loc[i[0],"Game"]] = open_games.loc[i[0],"Team2"]
-    else:
-      completed_key[open_games.loc[i[0],"Game"]] = open_games.loc[i[0],"Team1"] 
-  return completed_key
 
 
 
-def possible_outcome3(completed_key, open_games, number):
-    for i in open_games.index:
-      if (number & 2**i) > 0:
-        completed_key[open_games.loc[i,'Game']] = open_games.loc[i,"Team1"]
-      else:
-        completed_key[open_games.loc[i,'Game']] = open_games.loc[i,"Team2"]
-    return completed_key 
 
-def run_simulation(df, completed_key, open_games):
-  df["Simulations_Won"] = 0
-  key = completed_key.copy(deep=True)
-  open_games_temp = open_games.reset_index()
-  for i in range(0,2**len(open_games)):
-    if i%1000 == 0:
-      print(i)
-    possible_outcome2 = possible_outcome(key, open_games_temp, i)
-    record = np.sum(df.eq(possible_outcome2, axis=1), axis=1)
-    #print(i,record)
-    df["Simulations_Won"] += (record == np.max(record))
-  return df
 
 ## Jeff Test Code Speed
 family_picks = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], dtype=np.uint32)
@@ -75,7 +47,6 @@ for key in range(0,2**18):
     print(key) 
   pathways += winners
 
-pathways
 
 
 df["Simulations_Won"] = 0
@@ -97,7 +68,6 @@ with col1:
 
 
 def callback_function(game):
-    #print(st.session_state.Game1)
     st.session_state.key[game] = name_conversion[st.session_state[game]]
 
 with col2:
