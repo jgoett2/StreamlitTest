@@ -64,7 +64,7 @@ col1, col2 = st.columns(2)
 
 with col1:
   df = df.sort_values(["Wins","Simulations_Won"], ascending=False)
-  st.dataframe(df[["Name", "Wins", "Losses", "Simulations_Won"]], hide_index=True)
+  st.dataframe(df[["Name", "Wins", "Losses", "Simulations_Won"]], hide_index=True, height=480)
 
 
 def callback_function(game):
