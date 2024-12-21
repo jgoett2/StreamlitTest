@@ -21,7 +21,7 @@ df["Losses"] = len(st.session_state.key) - df["Wins"]
 # Simulate all possibe outcomes and total pathways to victory for each
 open_games = games[~games.Game.isin(st.session_state.key.index)]
 
-open_games
+#open_games
 
 
 
@@ -36,7 +36,7 @@ for i in range(0,18):
 
 pathways = np.zeros(19)
 
-for key in range(0,2**14):
+for key in range(0,2**0):
   results = ~(family_picks ^ np.uint32(key))
   total = np.zeros(19)
   for i in range(0,18):
@@ -51,9 +51,9 @@ for key in range(0,2**14):
 
 df["Simulations_Won"] = 0
 
-open_games
+#open_games
 
-st.session_state.key
+#st.session_state.key
 
 
 
