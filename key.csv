@@ -1,19 +1,19 @@
 ﻿Game,Team1,Team1_Victory,Team2,Team2_Victory
-CFP_First_Round1,1. Indiana,FALSE,2. Notre Dame,TRUE
-CFP_First_Round2,3. Tennessee,FALSE,4. Ohio State,FALSE
-CFP_First_Round3,5. SMU,FALSE,6. Penn State,FALSE
-CFP_First_Round4,7. Clemson,FALSE,8. Texas,FALSE
-Pop_Tarts_Bowl,9. Miami,FALSE,10. Iowa State,FALSE
-Arizona_Bowl,11. Miami (OH),FALSE,12. Colorado State,FALSE
-Military_Bowl,13. N.C. State,FALSE,14. East Carolina,FALSE
-Alamo_Bowl,15. Colorado ,FALSe,16. BYU,FALSE
-Pinstripe_Bowl,17. Boston College,FALSE,18. Nebraska,FALSE
-Music_City_Bowl,19. Missouri,FALSE,20. Iowa,FALSE
-Reliaquest_Bowl,21. Michigan,FALSE,22. Alabama,FALSE
-Sun_Bowl,23. Louisville,FALSE,24. Washington,FALSE
-Citrus_Bowl,25. South Carolina,FALSE,26. Illinois,FALSE
-Texas_Bowl,27. Baylor,FALSE,28. LSU,FALSE
-Gator_Bowl,29. Duke,FALSE,30. Ole Miss,FALSE
-First_Responder_Bowl,31. North Texas,FALSE,32. Texas State,FALSE
-Mayo_Bowl,33. Minnesota,FALSE,34. Virginia Tech,FALSE
-Bahamas_Bowl,35. Liberty,FALSE,36. Buffalo,FALSE
+CFP_First_Round1,1. Indiana (+9),FALSE,2. Notre Dame,TRUE
+CFP_First_Round2,3. Tennessee (+8),FALSE,4. Ohio State,FALSE
+CFP_First_Round3,5. SMU (+8),FALSE,6. Penn State,TRUE
+CFP_First_Round4,7. Clemson (+11),FALSE,8. Texas,TRUE
+Pop_Tarts_Bowl,9. Miami,FALSE,10. Iowa State (+8),FALSE
+Arizona_Bowl,11. Miami (OH),FALSE,12. Colorado State (+2),FALSE
+Military_Bowl,13. N.C. State,FALSE,14. East Carolina (+9),FALSE
+Alamo_Bowl,15. Colorado ,FALSE,16. BYU (+4),FALSE
+Pinstripe_Bowl,17. Boston College (+8),FALSE,18. Nebraska,FALSE
+Music_City_Bowl,19. Missouri,FALSE,20. Iowa (+2),FALSE
+Reliaquest_Bowl,21. Michigan (+11),FALSE,22. Alabama,FALSE
+Sun_Bowl,23. Louisville,FALSE,24. Washington (+7),FALSE
+Citrus_Bowl,25. South Carolina,FALSE,26. Illinois (+9),FALSE
+Texas_Bowl,27. Baylor (+5),FALSE,28. LSU,FALSE
+Gator_Bowl,29. Duke (+13),FALSE,30. Ole Miss,FALSE
+First_Responder_Bowl,31. North Texas (+9),FALSE,32. Texas State,FALSE
+Mayo_Bowl,33. Minnesota,FALSE,34. Virginia Tech (+4),FALSE
+Bahamas_Bowl,35. Liberty,FALSE,36. Buffalo (+3),FALSE
