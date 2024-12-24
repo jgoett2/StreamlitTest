@@ -37,7 +37,7 @@ def calculate_pathways(df, key):
   for scenario in range(0,2**len(open_games)):
     total = df.Wins.to_numpy(copy=True)
 
-    if (len(open_games>0)):
+    if (len(open_games)>0):
       results = ~(family_picks ^ np.uint32(scenario))
     
       for i in range(0,len(open_games)):
