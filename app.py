@@ -21,40 +21,37 @@ df["Losses"] = len(st.session_state.key) - df["Wins"]
 # Simulate all possibe outcomes and total pathways to victory for each
 open_games = games[~games.Game.isin(st.session_state.key.index)]
 
-#open_games
 
 
+def calculate_pathways(df, key):
+  open_games = [x for x in df.columns if x not in key.index]
+  open_games = [x for x in open_games if x not in ["Name", "Wins", "Losses", "num", "Pathways_to_First"]]
+
+  picks_binary = df[open_games].map(lambda x: int(x.split(".")[0])%2)
+  powers_two = np.array([2**x for x in np.arange(len(open_games)-1, -1, -1)])
+  df["num"] = (np.array(picks_binary.values)).dot(powers_two)
+
+  family_picks = df["num"].to_numpy()
+  pathways = np.zeros(12)
+
+  for scenario in range(0,2**len(open_games)):
+    results = ~(family_picks ^ np.uint32(scenario))
+    total = df.Wins.to_numpy(copy=True)
+    for i in range(0,len(open_games)):
+      total += results % 2
+      results = results >> 1
+    winners = (total == max(total))
+    pathways += winners
+  
+  df["Pathways_to_First"] = pathways
+  df["Pathways_to_First"] = df["Pathways_to_First"].astype(int)
+  df["Chance_of_Winning"] = df["Pathways_to_First"] / 2**len(open_games) * 100
+  df["Chance_of_Winning"] = df["Chance_of_Winning"].astype(int)
+  df["Chance_of_Winning"] = df["Chance_of_Winning"].astype(str) + "%"
+  return df
 
 
-
-
-## Jeff Test Code Speed
-family_picks = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], dtype=np.uint32)
-for i in range(0,18):
-  family_picks[i+1] = 2**i 
-
-
-pathways = np.zeros(19)
-
-for key in range(0,2**0):
-  results = ~(family_picks ^ np.uint32(key))
-  total = np.zeros(19)
-  for i in range(0,18):
-    total += results % 2
-    results = results >> 1
-  winners = (total == max(total))
-  if (winners[0]):
-    print(key) 
-  pathways += winners
-
-
-
-df["Simulations_Won"] = 0
-
-#open_games
-
-#st.session_state.key
-
+df = calculate_pathways(df, st.session_state.key)
 
 
 
@@ -63,8 +60,8 @@ df["Simulations_Won"] = 0
 col1, col2 = st.columns(2)
 
 with col1:
-  df = df.sort_values(["Wins","Simulations_Won"], ascending=False)
-  st.dataframe(df[["Name", "Wins", "Losses", "Simulations_Won"]], hide_index=True, height=480)
+  df = df.sort_values(["Wins","Pathways_to_First"], ascending=False)
+  st.dataframe(df[["Name", "Wins", "Losses", "Pathways_to_First", "Chance_of_Winning"]], hide_index=True, height=480)
 
 
 def callback_function(game):
