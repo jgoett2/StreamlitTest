@@ -32,7 +32,7 @@ def calculate_pathways(df, key):
   df["num"] = (np.array(picks_binary.values)).dot(powers_two)
 
   family_picks = df["num"].to_numpy()
-  pathways = np.zeros(12)
+  pathways = np.zeros(14)
 
   for scenario in range(0,2**len(open_games)):
     total = df.Wins.to_numpy(copy=True)
@@ -49,8 +49,8 @@ def calculate_pathways(df, key):
   df["Pathways_to_First"] = pathways
   df["Pathways_to_First"] = df["Pathways_to_First"].astype(int)
   df["Chance_of_Winning"] = df["Pathways_to_First"] / 2**len(open_games) * 100
-  df["Chance_of_Winning"] = df["Chance_of_Winning"].astype(int)
-  df["Chance_of_Winning"] = df["Chance_of_Winning"].astype(str) + "%"
+  df["Chance_of_Winning"] = (df["Chance_of_Winning"]*10).astype(int)
+  df["Chance_of_Winning"] = (df["Chance_of_Winning"]/10).astype(str) + "%"
   return df
 
 
@@ -64,7 +64,7 @@ col1, col2 = st.columns(2)
 
 with col1:
   df = df.sort_values(["Wins","Pathways_to_First"], ascending=False)
-  st.dataframe(df[["Name", "Wins", "Losses", "Pathways_to_First", "Chance_of_Winning"]], hide_index=True, height=480)
+  st.dataframe(df[["Name", "Wins", "Losses", "Pathways_to_First", "Chance_of_Winning"]], hide_index=True, height=560)
 
 
 def callback_function(game):
