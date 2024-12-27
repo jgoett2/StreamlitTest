@@ -7,6 +7,17 @@ st.title("CFP")
 df = pd.read_csv("data.csv")
 games = pd.read_csv("key.csv")
 
+
+family = st.selectbox(
+    "Family:",
+    np.insert(df["Family"].unique(), 0, "Everyone")
+)
+
+if family != "Everyone":
+  df = df[df["Family"]==family]
+
+
+
 name_conversion = {None:"open"}
 
 if "key" not in st.session_state:
@@ -25,7 +36,7 @@ open_games = games[~games.Game.isin(st.session_state.key.index)]
 
 def calculate_pathways(df, key):
   open_games = [x for x in df.columns if x not in key.index]
-  open_games = [x for x in open_games if x not in ["Name", "Wins", "Losses", "num", "Pathways_to_First"]]
+  open_games = [x for x in open_games if x not in ["Name", "Wins", "Losses", "num", "Pathways_to_First", "Family"]]
 
   picks_binary = df[open_games].map(lambda x: int(x.split(".")[0])%2)
   powers_two = np.array([2**x for x in np.arange(len(open_games)-1, -1, -1)])
@@ -64,7 +75,7 @@ col1, col2 = st.columns(2)
 
 with col1:
   df = df.sort_values(["Wins","Pathways_to_First"], ascending=False)
-  st.dataframe(df[["Name", "Wins", "Losses", "Pathways_to_First", "Chance_of_Winning"]], hide_index=True, height=40*len(df))
+  st.dataframe(df[["Name", "Wins", "Losses", "Pathways_to_First", "Chance_of_Winning"]], hide_index=True, height=50*len(df))
 
 
 def callback_function(game):
