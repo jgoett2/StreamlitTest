@@ -133,8 +133,8 @@ fig.update_traces(marker=dict(size=10, line=dict(width=2, color='black')))
 
 
 fig.update_xaxes(title_text=name_detail + " Possible Losses")
-fig.update_xaxes(range=[0,9])
-fig.update_xaxes(tickvals=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+fig.update_xaxes(range=[0,10])
+fig.update_xaxes(tickvals=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 fig.update_yaxes(range=[0,1])
 fig.update_yaxes(tickvals=[0,1])
