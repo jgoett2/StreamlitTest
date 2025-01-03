@@ -1,4 +1,4 @@
-﻿Game,Team1,Team1_Victory,Team2,Team2_Victory
+Game,Team1,Team1_Victory,Team2,Team2_Victory
 CFP_First_Round1,1. Indiana (+9),FALSE,2. Notre Dame,TRUE
 CFP_First_Round2,3. Tennessee (+8),FALSE,4. Ohio State,TRUE
 CFP_First_Round3,5. SMU (+8),FALSE,6. Penn State,TRUE
@@ -13,7 +13,7 @@ Reliaquest_Bowl,21. Michigan (+11),TRUE,22. Alabama,FALSE
 Sun_Bowl,23. Louisville,FALSE,24. Washington (+7),TRUE
 Citrus_Bowl,25. South Carolina,FALSE,26. Illinois (+9),TRUE
 Texas_Bowl,27. Baylor (+5),FALSE,28. LSU,TRUE
-Gator_Bowl,29. Duke (+13),FALSE,30. Ole Miss,FALSE
+Gator_Bowl,29. Duke (+13),FALSE,30. Ole Miss,TRUE
 First_Responder_Bowl,31. North Texas (+9),FALSE,32. Texas State,FALSE
 Mayo_Bowl,33. Minnesota,FALSE,34. Virginia Tech (+4),FALSE
 Bahamas_Bowl,35. Liberty,FALSE,36. Buffalo (+3),FALSE
