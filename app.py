@@ -136,6 +136,8 @@ fig.update_xaxes(title_text=name_detail + " Possible Losses")
 fig.update_xaxes(range=[0,9])
 fig.update_xaxes(tickvals=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
+fig.update_yaxes(range=[0,1])
+fig.update_yaxes(tickvals=[0,1])
 fig.update_yaxes(title_text='')
 
   
