@@ -80,6 +80,10 @@ name_detail = df["Name"].unique()[0]
 
 scenarios = pd.DataFrame(scenarios)
 
+
+scenarios["Win1"] = scenarios["number"] & 4
+
+
 def get_status(name_detail, x):
   if name_detail in x and len(x) == 1:
     return "win_outright"
@@ -89,6 +93,14 @@ def get_status(name_detail, x):
     return "lost"
 
 scenarios["status"] = scenarios["winners"].map(lambda x: get_status(name_detail, x))
+
+i = len(open_games)-1
+scenarios["teams"] = ""
+for y in open_games.values:
+  number = 2**i
+  scenarios["teams"] += scenarios["number"].map(lambda x: (y[1] + ", ") if ((x & number) > 0) else (y[3] + ", "))
+  i -= 1
+  
 
 def count_distance(x, player_binary, losses):
   result = (player_binary ^ np.uint32(x))
@@ -114,6 +126,7 @@ for losses in scenarios["distance"].unique():
 fig = px.scatter(scenarios, x=scenarios["x"], y=scenarios["y"], color="status", 
                  color_discrete_map={"win_outright": 'blue', "tie": "lightblue", "lost":"white"}, 
                  hover_name=scenarios["winners"],
+                 hover_data="teams",
                  title="Remaining Scenarios and Respective Winners")
 
 fig.update_traces(marker=dict(size=10, line=dict(width=2, color='black')))
