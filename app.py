@@ -123,10 +123,13 @@ for losses in scenarios["distance"].unique():
 
   # Create distplot with custom bin_size
 
-fig = px.scatter(scenarios, x=scenarios["x"], y=scenarios["y"], color="status", 
+fig = px.scatter(scenarios, x="x", y="y", color="status", 
                  color_discrete_map={"win_outright": 'blue', "tie": "lightblue", "lost":"white"}, 
-                 hover_name=scenarios["winners"],
-                 hover_data="teams",
+                 hover_name="winners",
+                 hover_data={'x':False, # remove species from hover data
+                             'y':False, # customize hover for column of y attribute
+                             'teams':True # add other column, default formatting
+                            },
                  title="Remaining Scenarios and Respective Winners")
 
 fig.update_traces(marker=dict(size=10, line=dict(width=2, color='black')))
