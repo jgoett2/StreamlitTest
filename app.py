@@ -149,6 +149,21 @@ fig.update_yaxes(title_text='')
 
   
 st.plotly_chart(fig, use_container_width=True)
+
+import plotly.graph_objects as go
+
+fig = go.Figure(go.Scatter(
+    x = [1,2,3,4,5],
+    y = [2.02825,1.63728,6.83839,4.8485,4.73463],
+    hovertemplate =
+    '<i>Price</i>: $%{y:.2f}'+
+    '<br><b>X</b>: %{x}<br>'+
+    '<b>%{text}</b>',
+    text = ['Custom text {}'.format(i + 1) for i in range(5)],
+    showlegend = False))
+
+
+st.plotly_chart(fig, use_container_width=True)
 # end experiment
 
 
